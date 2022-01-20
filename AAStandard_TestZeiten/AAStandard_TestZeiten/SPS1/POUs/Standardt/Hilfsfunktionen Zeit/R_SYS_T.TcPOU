@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="R_SYS_T" Id="{dd1e5667-3a03-4853-8f36-d7efde7cc85d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK R_SYS_T
+VAR_INPUT
+	It_SynchTime						: TIME; 
+END_VAR
+VAR_OUTPUT
+	Odt_RTCTime						: DT; 
+	Odw_Milliseconds					: DWORD; 
+	Ox_TimeValid						: BOOL; 
+END_VAR
+VAR
+	So_SynchronizeTimer			: TON; 
+	So_ReadSystemTime			: NT_GetTime; 
+	Ss_SystemTime					: TIMESTRUCT; 
+	Sx_Synch								: BOOL; 
+	So_SynchTrigger					: F_TRIG; 
+	So_RTC								: RTC_EX; 
+	
+	//Debug variables
+	Si_SynchCounter					: DWORD; 
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Defines
+{define DEBUG}
+
+//Read System Time cyclic with period based on the Synch time 
+So_SynchronizeTimer(IN := NOT So_SynchronizeTimer.Q, PT := It_SynchTime);
+So_ReadSystemTime(START := So_SynchronizeTimer.Q,  TMOUT := DEFAULT_ADS_TIMEOUT, TIMESTR => Ss_SystemTime); 
+
+//Create the synchronise bit
+So_SynchTrigger(CLK := (So_ReadSystemTime.BUSY AND NOT So_ReadSystemTime.ERR)); 
+
+//Count the Synchs in Debug Mode
+{IF defined (DEBUG)}
+	IF(So_SynchTrigger.Q) THEN 
+		Si_SynchCounter := Si_SynchCounter + 1; 
+	END_IF
+{END_IF}
+
+//RTC Synchronisieren und auslesen 
+So_RTC(EN := So_SynchTrigger.Q, PDT := SYSTEMTIME_TO_DT(Ss_SystemTime), PMSEK := Ss_SystemTime.wMilliseconds, Q => Ox_TimeValid, CDT => Odt_RTCTime, CMSEK => Odw_Milliseconds); 
+]]></ST>
+    </Implementation>
+    <LineIds Name="R_SYS_T">
+      <LineId Id="31" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="38" Count="2" />
+      <LineId Id="42" Count="2" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="22" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

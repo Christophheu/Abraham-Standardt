@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <GVL Name="Globale_Konstanten" Id="{ec970b76-b16e-4504-87db-128be9d51cd4}" ParameterList="True">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+//Anwenderkonstanten
+VAR_GLOBAL CONSTANT
+	Ci_ZentralModuleAnzahl				:INT 		:=1; 					//Anzahl der autarken Zentralmodule
+	Ci_Funktionselmente					:INT 		:=999; 				//Anzahl der Funktionselemente 
+	Ci_Mod1										:INT			:=1; 					//EnumMR - Modul1
+	Ci_Mod1RT1									:INT			:=1; 					//EnumMR - Modul1 RT1
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

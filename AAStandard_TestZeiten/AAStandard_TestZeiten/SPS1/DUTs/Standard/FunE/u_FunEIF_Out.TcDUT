@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="u_FunEIF_Out" Id="{a8c1e48a-4844-4ac4-9a8b-80cc4d06aeaf}">
+    <Declaration><![CDATA[TYPE u_FunEIF_Out :
+STRUCT
+	x_bereit								:BOOL :=FALSE; 													//Funktionselement ist bereit
+	x_arbeitet							:BOOL :=FALSE; 													//Funktionselement arbeitet
+	x_fertig								:BOOL :=FALSE; 													//Funktionselement hat Zyklus beendet (steht bis zum nächsten Zyklus an)
+	x_Fehler								:BOOL :=FALSE; 													//Funktionselement hat Fehler
+	x_Grundstellung					:BOOL :=FALSE; 													//Funktionselement ist in Grundstellung
+	x_initAktiv							:BOOL :=FALSE; 													//Funktionselement initialisierung aktiv 
+	s_Aktionsname					:STRING :=""; 													//Name der aktuellen Aktion
+	di_Status								:DINT := 0; 															//Statuscode (negativ=Fehler/positiv=erfolgreich)
+	t_ZeitLetzerZyklus				:TIME := T#0MS; 												//Bearbeitungszeit letzter Ablauf
+	di_Aktivierungen					:DINT := 0; 															//Anzahl der Aktivierungen 
+	lt_Betriebsstundenzaehler 	:LTIME := LTIME#0MS; 										//Betriebsstundenzaehler
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

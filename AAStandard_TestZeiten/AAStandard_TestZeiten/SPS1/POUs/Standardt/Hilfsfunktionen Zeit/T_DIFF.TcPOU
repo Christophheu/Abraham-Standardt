@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="T_DIFF" Id="{1cc41069-fedb-45ec-80a7-9c631bd1a78c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION T_DIFF : Time
+VAR_INPUT
+	Idt_Time1				:DT; 
+	Idw_Time1Millis	:DWORD; 
+	Idt_Time2				:DT; 
+	Idw_Time2Millis	:DWORD; 
+END_VAR
+VAR
+	Ss_Time1						:TIMESTRUCT;
+	Ss_Time2						:TIMESTRUCT;
+	Sw_HourDiff					:WORD; 
+	Sw_MinuteDiff				:WORD; 
+	Sw_SecondDiff				:WORD; 
+	Sw_MillisecondsDiff		:DWORD;
+	Sdw_TimeInMillis			:DWORD ; 
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Convert the time to TIMESTRUCT
+Ss_Time1 := DT_TO_SYSTEMTIME(Idt_Time1); 
+Ss_Time2 := DT_TO_SYSTEMTIME(Idt_Time2); 
+
+//Subract
+Sw_HourDiff := Ss_Time1.wHour - Ss_Time2.wHour; 
+Sw_MinuteDiff := Ss_Time1.wMinute - Ss_Time2.wMinute; 
+Sw_SecondDiff := Ss_Time1.wSecond - Ss_Time2.wSecond; 
+Sw_MillisecondsDiff := Idw_Time1Millis - Idw_Time2Millis;
+
+//Convert to millis
+Sdw_TimeInMillis := Sdw_TimeInMillis + Sw_MillisecondsDiff; 
+Sdw_TimeInMillis := Sdw_TimeInMillis + (Sw_SecondDiff*1000);
+Sdw_TimeInMillis := Sdw_TimeInMillis + (Sw_MinuteDiff*1000*60); 
+Sdw_TimeInMillis := Sdw_TimeInMillis + (Sw_HourDiff*1000*60*60); 
+
+//Return 
+T_DIFF := DWORD_TO_TIME(Sdw_TimeInMillis); ]]></ST>
+    </Implementation>
+    <LineIds Name="T_DIFF">
+      <LineId Id="15" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="19" Count="1" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="23" Count="3" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="38" Count="2" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="49" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

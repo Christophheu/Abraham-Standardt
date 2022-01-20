@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedType>
+      <Type guid="1221a366-1d98-46a1-a6d6-3d377138e02a">AXISINTERFACE</Type>
+      <From>AxisInterface</From>
+      <To>Axis_Interfaces</To>
+    </RenamedType>
+    <RenamedType>
+      <Type guid="ec970b76-b16e-4504-87db-128be9d51cd4">TEST</Type>
+      <From>test</From>
+      <To>Globale_Konstanten</To>
+    </RenamedType>
+    <RenamedType>
+      <Type guid="817bfbbb-4fef-4ec8-9fa6-ce1ce00e14fc">TAKTGENERATOR</Type>
+      <From>Taktgenerator</From>
+      <To>FB_Zentral_TaktimpulsGenerator</To>
+    </RenamedType>
+  </Renames>
+</Refactors>

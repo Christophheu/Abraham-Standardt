@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <GVL Name="DB_FunE_IF" Id="{7eb3fa09-aac4-4f11-ac99-13095a776ada}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	Nr																	:ARRAY[0..Globale_Konstanten.Ci_Funktionselmente] OF u_FunEIF; 
+	Anwahl_HMI_FunE_1									:INT :=0; 
+	Anwahl_HMI_FunE_2									:INT :=0; 
+	Anwahl_HMI_FunE_3									:INT :=0; 
+	Anwahl_HMI_FunE_4									:INT :=0; 
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

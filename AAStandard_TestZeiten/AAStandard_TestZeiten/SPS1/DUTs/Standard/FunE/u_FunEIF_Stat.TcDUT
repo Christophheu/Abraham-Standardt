@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="u_FunEIF_Stat" Id="{8dcc7032-04ea-4479-b2f6-301170e68641}">
+    <Declaration><![CDATA[TYPE u_FunEIF_Stat :
+STRUCT
+	x_Halt												:BOOL :=FALSE; 								//FunE Halt
+	x_Betrieb											:BOOL :=FALSE; 								//Betriebsfreigabe
+	x_WSB												:BOOL :=FALSE;								//Weiterschaltbedingung
+	x_Schrittwechsel								:BOOL :=FALSE; 								//Schrittwechsel aktiv
+	i_SchrittFlanke									:INT :=0; 										//Schritt letzter SPS - Zyklus (benötigt zur Erkennung des Schrittwechsels)
+	i_Schritt											:INT:= 0; 										//aktueller Schritt der Schrittkette
+	i_SchrittAlt										:INT :=0; 										//letzter Schritt
+	dt_StartZeit										:DT := DT#1972-03-29-00:00:00;	//Zeit, an dem das Funktionselement gestartet wurde	(Achtung!!!: In DT sind im gegensatz zu Siemens keine MS enthalten!!!)
+	dt_LaufzeitFunE								:DT := DT#1972-03-29-00:00:00;  	//Zeit seit Start des Funktionselements (Achtung!!!: In DT sind im gegensatz zu Siemens keine MS enthalten!!!)
+	t_mittlereZykluszeit							:TIME :=T#0MS; 								//eingelernte Zykluszeit
+	o_Simulationszeit								:TON; 												//Timer für die Simulation des Funktionselements
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{bdaa0c53-7414-42f8-b710-e526f3e6d41b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	So_Taktgenerator				: FB_Zentral_TaktimpulsGenerator; 
+	
+	Sx_Takt			: BOOL; 
+	Sx_Impuls		: BOOL; 
+	Si_Counter		: INT; 
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+So_Taktgenerator(Ir_Frequenz := 1.0, Ox_Takt => Sx_Takt, Ox_Impuls => Sx_Impuls); 
+
+IF(Sx_Impuls) THEN 
+	Si_Counter := Si_Counter + 1;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="22" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="32" Count="1" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

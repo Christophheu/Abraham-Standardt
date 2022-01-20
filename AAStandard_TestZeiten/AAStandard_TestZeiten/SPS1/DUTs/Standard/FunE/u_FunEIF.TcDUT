@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="u_FunEIF" Id="{f6078f07-cee0-42fd-b687-ea46bb04628b}">
+    <Declaration><![CDATA[TYPE u_FunEIF :
+STRUCT
+	I									:u_FunEIF_In; 
+	O									:u_FunEIF_Out; 
+	X									:u_FunEIF_InOut;
+	Stat								:u_FunEIF_Stat;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

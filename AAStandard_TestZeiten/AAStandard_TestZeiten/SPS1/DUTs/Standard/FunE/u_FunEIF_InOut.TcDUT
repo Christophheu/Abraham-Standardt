@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="u_FunEIF_InOut" Id="{61bf7c58-1148-4be8-87d5-fd7a36fa0b53}">
+    <Declaration><![CDATA[TYPE u_FunEIF_InOut :
+STRUCT
+	x_Parameter					:ARRAY[0..255] OF BOOL; 
+	di_Parameter					:ARRAY[0..31] OF DINT; 
+	lr_Parameter					:ARRAY[0..31] OF LREAL; 
+	s_Parameter					:ARRAY[0..1] OF STRING; 
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

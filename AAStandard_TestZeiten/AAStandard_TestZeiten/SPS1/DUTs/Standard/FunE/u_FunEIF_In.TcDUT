@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="u_FunEIF_In" Id="{7c333222-371f-4b9d-ae23-d8fea0ec55f5}">
+    <Declaration><![CDATA[TYPE u_FunEIF_In :
+STRUCT
+	x_Start									:BOOL := FALSE;															//Start Ablauf
+	x_Init									:BOOL := FALSE; 														//Anwahl Initialisierung
+	x_Freigabe							:BOOL := FALSE; 														//Freigabe Ablauf
+	x_FreigabeHalt						:BOOL := FALSE; 														//Freigabe Unterbrechung
+	x_FreigabeStoerung			:BOOL := FALSE; 														//Freigabe Stoerung
+	x_FreigabeZeitEinlernen		:BOOL := FALSE; 														//Freigabe Ermittlung Regelzeit
+	x_uFunEGST							:BOOL := FALSE; 														//unterlagerte Funktionselemente : alle in Grundstellungs
+	x_uFunEinitAktiv					:BOOL := FALSE; 														//unterlagerte Funktionselemente: mind. 1 initialisierung aktiv 
+	x_uFunEHalt							:BOOL := FALSE; 														//unterlagerte Funktionselemente: mind. 1 noch nicht fertig
+	x_uFunEStoerung				:BOOL := FALSE; 														//unterlagerte Funktionselemente: mind. 1 hat Stoerung
+	x_SimulationAktiv					:BOOL := FALSE; 														//Simulation aktiv
+	i_Auftrag								:BOOL := FALSE; 														//Auftragsnummer
+	t_Simulationszeit					:TIME := T#1S; 															//Verzögerungszeit für Simulation
+	t_TimeOut							:TIME := T#1S; 															//TimeOut für Meldung wenn FunE länger braucht als eingelernt
+	s_Name								:STRING := "Kein Funktionselement vergeben"; 		//Name des Funktionselements
+	i_FunETyp							:INT := 0; 																	//Typ/Art des Funktionselements
+	i_MasterFunE						:INT := 0; 																	//uebergeordnetes Funktionselement (bei 0 kein uebergeordnetes FunE)
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

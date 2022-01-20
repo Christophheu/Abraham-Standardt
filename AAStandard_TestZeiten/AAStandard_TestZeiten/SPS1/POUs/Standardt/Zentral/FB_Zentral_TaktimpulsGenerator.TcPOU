@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_Zentral_TaktimpulsGenerator" Id="{817bfbbb-4fef-4ec8-9fa6-ce1ce00e14fc}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Zentral_TaktimpulsGenerator
+VAR_INPUT
+	Ir_Frequenz		: REAL; 
+END_VAR
+VAR_OUTPUT
+	Ox_Takt								: BOOL; 
+	Ox_Impuls							: BOOL; 
+END_VAR
+
+VAR
+	St_TakttimerEinfach					: TON; 
+	ReadRTC									: R_SYS_T; 
+	TimeValid									: BOOL; 
+	RTCTime									: DT; 
+	RTCMillis									: DWORD; 
+	Sdt_StartAktuellerTakt				: DT; 
+	Sx_TaktFP								: BOOL; 
+	Sx_Init										: BOOL; 
+	St_DifferenzStartAktuell			:TIME; 	
+	Sdw_StartAktuellerTaktMillis	:DWORD;  
+END_VAR
+	
+VAR_TEMP
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Erfassung aktuelle Date and Time
+ReadRTC(It_SynchTime := T#5S, Ox_TimeValid => TimeValid, Odt_RTCTime => RTCTime, Odw_Milliseconds => RTCMillis);  
+	
+//Ermittlung Dauer seit Taktstart
+St_DifferenzStartAktuell := T_DIFF(Idt_Time1 := RTCTime, Idw_Time1Millis :=RTCMillis, Idt_Time2 := Sdt_StartAktuellerTakt, Idw_Time2Millis := Sdw_StartAktuellerTaktMillis); 
+
+
+//Taktbildung (halbe Zeit an/ halbe Zeit aus)
+Ox_Takt := St_DifferenzStartAktuell > DINT_TO_TIME(REAL_TO_DINT((1000/Ir_Frequenz)/2)); 
+	
+//Impuls Takt 
+Ox_Impuls := Ox_Takt AND NOT Sx_TaktFP;
+Sx_TaktFP := Ox_Takt; 
+	
+//Abspeichern Start aktueller Takt
+IF (St_DifferenzStartAktuell > DINT_TO_TIME(REAL_TO_DINT((1000/Ir_Frequenz)))) OR NOT Sx_Init THEN 
+	Sdt_StartAktuellerTakt := RTCTime; 
+	Sdw_StartAktuellerTaktMillis := RTCMillis; 
+END_IF
+	
+//Baustein als initialisiert setzen 
+Sx_Init := TRUE; 
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Zentral_TaktimpulsGenerator">
+      <LineId Id="25" Count="0" />
+      <LineId Id="152" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="86" Count="1" />
+      <LineId Id="169" Count="0" />
+      <LineId Id="161" Count="0" />
+      <LineId Id="95" Count="1" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="100" Count="1" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="171" Count="0" />
+      <LineId Id="110" Count="0" />
+      <LineId Id="102" Count="1" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="32" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
